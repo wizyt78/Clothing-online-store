@@ -1,0 +1,1 @@
+Fresh STYLEHUB storefront. Local product images are included. Cart and checkout flow work in-browser. KoraPay live checkout activates after setting KORAPAY_SECRET_KEY as a Cloudflare server secret. WhatsApp: +49 177 1371042.

@@ -1,0 +1,165 @@
+{
+  "products": [
+    {
+      "id": "hoodie",
+      "name": "Premium Essential Hoodie",
+      "category": "Men",
+      "price": 45000,
+      "original": 65000,
+      "image": "assets/products/premium-hoodie.jpg",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "description": "Premium premium essential hoodie designed for modern everyday style."
+    },
+    {
+      "id": "sneakers",
+      "name": "Classic Court Sneakers",
+      "category": "Shoes",
+      "price": 65000,
+      "original": 90000,
+      "image": "assets/products/classic-sneakers.jpg",
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "description": "Premium classic court sneakers designed for modern everyday style."
+    },
+    {
+      "id": "handbag",
+      "name": "Luxury Structured Handbag",
+      "category": "Women",
+      "price": 85000,
+      "original": 120000,
+      "image": "assets/products/luxury-handbag.jpg",
+      "sizes": [
+        "One Size"
+      ],
+      "description": "Premium luxury structured handbag designed for modern everyday style."
+    },
+    {
+      "id": "denim",
+      "name": "Premium Denim Jacket",
+      "category": "Men",
+      "price": 55000,
+      "original": 75000,
+      "image": "assets/products/denim-jacket.jpg",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "description": "Premium premium denim jacket designed for modern everyday style."
+    },
+    {
+      "id": "sunglasses",
+      "name": "Designer Black Sunglasses",
+      "category": "Accessories",
+      "price": 35000,
+      "original": 50000,
+      "image": "assets/products/designer-sunglasses.jpg",
+      "sizes": [
+        "One Size"
+      ],
+      "description": "Premium designer black sunglasses designed for modern everyday style."
+    },
+    {
+      "id": "varsity",
+      "name": "Signature Varsity Jacket",
+      "category": "Men",
+      "price": 95000,
+      "original": 135000,
+      "image": "assets/products/green-varsity-jacket.jpg",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "description": "Premium signature varsity jacket designed for modern everyday style."
+    },
+    {
+      "id": "dress",
+      "name": "Sculpted Evening Dress",
+      "category": "Women",
+      "price": 72000,
+      "original": 100000,
+      "image": "assets/products/black-womens-dress.jpg",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "description": "Premium sculpted evening dress designed for modern everyday style."
+    },
+    {
+      "id": "sweatshirt",
+      "name": "Essential Signature Sweatshirt",
+      "category": "Unisex",
+      "price": 52000,
+      "original": 70000,
+      "image": "assets/products/essentials-sweatshirt.jpg",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "description": "Premium essential signature sweatshirt designed for modern everyday style."
+    },
+    {
+      "id": "boots",
+      "name": "Leather Chelsea Boots",
+      "category": "Shoes",
+      "price": 88000,
+      "original": 115000,
+      "image": "assets/products/black-ankle-boots.jpg",
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "description": "Premium leather chelsea boots designed for modern everyday style."
+    },
+    {
+      "id": "tee",
+      "name": "Luxury Everyday Tee",
+      "category": "Men",
+      "price": 39000,
+      "original": 55000,
+      "image": "assets/products/black-mens-tee.jpg",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "description": "Premium luxury everyday tee designed for modern everyday style."
+    },
+    {
+      "id": "watch",
+      "name": "Signature Wrist Watch",
+      "category": "Accessories",
+      "price": 78000,
+      "original": 105000,
+      "image": "assets/products/wrist-watch.jpg",
+      "sizes": [
+        "One Size"
+      ],
+      "description": "Premium signature wrist watch designed for modern everyday style."
+    }
+  ]
+}

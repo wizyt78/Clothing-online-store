@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090a0b">
+<title>Checkout — STYLEHUB</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="checkout-page">
+<header class="checkout-header">
+  <a class="logo" href="index.html">STYLEHUB<small>WEAR YOUR STORY</small></a>
+  <div class="checkout-secure"><span class="secure-dot">✓</span> Secure checkout</div>
+</header>
+
+<main class="checkout-wrap">
+  <div class="checkout-top">
+    <a class="back-shop" href="index.html">← Continue shopping</a>
+    <div class="checkout-steps"><span class="active">1</span> Information <i></i><span>2</span> Payment</div>
+  </div>
+
+  <div class="checkout-layout">
+    <section class="checkout-form-card">
+      <div class="section-kicker">YOUR DETAILS</div>
+      <h1>Checkout</h1>
+      <p class="checkout-intro">Enter your delivery information and continue securely to payment.</p>
+
+      <form id="checkoutForm">
+        <div class="field-group">
+          <label for="name">Full name</label>
+          <input id="name" name="name" autocomplete="name" required placeholder="Your full name">
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="email">Email address</label>
+            <input id="email" type="email" name="email" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div class="field-group">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" autocomplete="tel" required placeholder="+234...">
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="address">Delivery address</label>
+          <textarea id="address" name="address" autocomplete="street-address" required placeholder="House number, street, city and state"></textarea>
+        </div>
+        <div class="checkout-security">
+          <span class="security-icon">✓</span>
+          <div><strong>Secure payment</strong><small>Your payment is processed securely by KoraPay. Card and supported payment options are shown at payment.</small></div>
+        </div>
+        <button class="payment-btn" id="payBtn" type="submit">
+          <span>Continue to secure payment</span><b>→</b>
+        </button>
+        <p class="payment-note">You will be redirected to KoraPay to complete your payment.</p>
+      </form>
+    </section>
+
+    <aside class="order-card">
+      <div class="order-card-head">
+        <div><div class="section-kicker">YOUR ORDER</div><h2>Order summary</h2></div>
+        <a href="index.html">Edit cart</a>
+      </div>
+      <div id="summaryItems" class="summary-items"></div>
+      <div class="summary-lines">
+        <div><span>Subtotal</span><b id="subtotal">₦0</b></div>
+        <div><span>Shipping</span><span class="shipping-note">Calculated at delivery</span></div>
+      </div>
+      <div class="summary-total"><span>Total</span><strong id="total">₦0</strong></div>
+      <div class="order-trust">
+        <div><span>✓</span><p><strong>Secure checkout</strong><small>Your details are protected.</small></p></div>
+        <div><span>↻</span><p><strong>7-day returns</strong><small>Easy returns on eligible items.</small></p></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="checkout-footer">
+  <span>© 2026 STYLEHUB</span><span>Secure checkout · WhatsApp +49 177 1371042</span>
+</footer>
+
+<script>
+const cart = JSON.parse(localStorage.getItem('stylehub-cart') || '[]');
+const money = n => new Intl.NumberFormat('en-NG',{style:'currency',currency:'NGN',maximumFractionDigits:0}).format(n);
+const escapeHtml = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+
+async function initCheckout(){
+  if(!cart.length){ window.location.href='index.html'; return; }
+  const data = await fetch('data.json',{cache:'no-store'}).then(r=>r.json());
+  const products = data.products || [];
+  let total = 0;
+
+  document.getElementById('summaryItems').innerHTML = cart.map(item => {
+    const p = products.find(x=>x.id===item.id);
+    if(!p) return '';
+    total += p.price * item.qty;
+    return `<div class="summary-item">
+      <div class="summary-image"><img src="${p.image}" alt="${escapeHtml(p.name)}"><span>${item.qty}</span></div>
+      <div class="summary-product"><strong>${escapeHtml(p.name)}</strong><small>Size ${escapeHtml(item.size)}</small></div>
+      <b>${money(p.price * item.qty)}</b>
+    </div>`;
+  }).join('');
+
+  document.getElementById('subtotal').textContent = money(total);
+  document.getElementById('total').textContent = money(total);
+
+  document.getElementById('checkoutForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('payBtn');
+    const form = new FormData(e.currentTarget);
+    const order = {
+      name: form.get('name'), email: form.get('email'), phone: form.get('phone'),
+      address: form.get('address'), total, items: cart
+    };
+    localStorage.setItem('stylehub-last-order', JSON.stringify(order));
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.querySelector('span').textContent = 'Connecting to secure payment...';
+
+    try {
+      const response = await fetch('/api/create-payment',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(order)
+      });
+      const result = await response.json();
+      if(!response.ok || !result.checkout_url) throw new Error(result.error || 'Payment initialization failed.');
+      window.location.href = result.checkout_url;
+    } catch(error) {
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      btn.querySelector('span').textContent = 'Continue to secure payment';
+      alert(error.message || 'Unable to start payment. Please try again.');
+    }
+  });
+}
+initCheckout().catch(()=>alert('Unable to load your order. Please return to the store.'));
+</script>
+</body>
+</html>
